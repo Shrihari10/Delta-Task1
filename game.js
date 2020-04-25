@@ -57,7 +57,7 @@ res.addEventListener('click',function(){
     
     function stopCountDown(){
         clearInterval(interval);
-        container.removeChild(startText);
+        container.classList.remove(startText);
         newArray=shuffle(numArray);
         stopWatch();
         display();
