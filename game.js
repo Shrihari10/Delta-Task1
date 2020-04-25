@@ -1,4 +1,3 @@
-
 var numArray =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
 let newArray =[];
 var time = 3;
@@ -7,14 +6,13 @@ var container = document.getElementById("container");
 var count=1;
 var text;
 var interval;
-
+var diff;
 var res = document.getElementById("reset");
 var startText;
 var stimer= document.getElementsByClassName("stimer")[0];
 var mstimer= document.getElementsByClassName("mstimer")[0];
 let removeBox= document.getElementsByClassName("box");
 let removeNumber= document.getElementsByClassName("number");
-let best=new Array();
 let k=0;
 let dispBest=document.getElementById("bestTime");
 let dis;
@@ -23,6 +21,7 @@ let msec;
 let s;
 let ms;
 let disTime;
+var best=new Array();
 
 setup();
 res.addEventListener('click',function(){
@@ -148,7 +147,6 @@ res.addEventListener('click',function(){
 		else if( finish==1)
 		{
             clearInterval(timer);
-            best.push(diff);
             bestTimer();
             res.innerHTML="";
             let newBox= document.createElement('p');
@@ -169,17 +167,15 @@ res.addEventListener('click',function(){
     
     
     function bestTimer(){
-     localStorage.setItem('best',JSON.stringify(best));
+
+    best.push(diff);
+    localStorage.setItem('best',JSON.stringify(best));
     best= JSON.parse(localStorage.getItem('best'));
     best.sort((a, b) => a - b);
     if(best.length>5)
         best.pop();
     localStorage.setItem('best',JSON.stringify(best));
-    if(k==0){
-    let first=document.getElementById("firstBest");
-    first.parentNode.removeChild(first);
-    k++;
-    }
+    
     displayBest();
     }
 
@@ -190,7 +186,7 @@ res.addEventListener('click',function(){
         dis.classList.add("timeBest");
         dispBest.appendChild(dis);
         disTime=document.getElementsByClassName('timeBest');
-        for(var i=0;i<best.length;i++)
+        for(var i=0;i<t.length;i++)
         { 
             sec=Math.floor(t[i]/1000);
             msec=t[i]-(Math.floor(t[i]/1000)*1000);
@@ -209,16 +205,19 @@ res.addEventListener('click',function(){
 
     function refreshBest(){
         best= JSON.parse(localStorage.getItem('best'));
-        for(var i=0;i<best.length;i++)
+        if(localStorage.getItem('best')===null)
+        document.getElementById('zerobest').innerHTML="0:000 S";
+        else
         {
-
-            refreshDiv= document.createElement("div");
-            refreshDiv.classList.add("timebest");
-            dispBest.appendChild(refreshDiv);
-            if(best.length==0)
-            document.getElementById('zerobest').innerHTML="0:000 S";
-            else
-            displayBest();
+            for(var i=0;i<best.length;i++)
+            {
+    
+                refreshDiv= document.createElement("div");
+                refreshDiv.classList.add("timebest");
+                dispBest.appendChild(refreshDiv);
+                displayBest();
+            }
         }
+     
        
     }
