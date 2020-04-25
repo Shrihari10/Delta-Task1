@@ -140,8 +140,11 @@ res.addEventListener('click',function(){
             clearInterval(timer);
             best.push(diff);
             bestTimer();
-            res.innerHTML="New Game";
-            res.classList.add("newGame");
+            res.innerHTML="";
+            let newBox= document.createElement('p');
+            newBox.classList.add('newGame')
+            res.appendChild(newBox);
+            newBox.innerHTML="New Game";
         }
         else if(finish ==2)
         { 

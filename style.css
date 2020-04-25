@@ -57,5 +57,9 @@ header:after {
     border: 1px solid white; 
 }
 .newGame{
+    display:inline;
     border: 1px solid white;
+    padding: 10px;
+    margin: 10px;
+    
 }
