@@ -27,7 +27,7 @@ header:after {
 .box{
     width : 20%;
     height: 25%;
-    border: 1px solid white; 
+    border: 5px solid white; 
     float : left;
     padding: 5px;
     background-color: #c3073f ;

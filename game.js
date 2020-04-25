@@ -20,8 +20,8 @@ let sec;
 let msec;
 let s;
 let ms;
-let disTime;
-var best=new Array();
+let disTime=document.getElementsByClassName('timebest');
+let refreshDiv;
 
 setup();
 res.addEventListener('click',function(){
@@ -167,7 +167,7 @@ res.addEventListener('click',function(){
     
     
     function bestTimer(){
-
+    var best=new Array();
     best.push(diff);
     localStorage.setItem('best',JSON.stringify(best));
     best= JSON.parse(localStorage.getItem('best'));
@@ -181,15 +181,14 @@ res.addEventListener('click',function(){
 
     function displayBest()
     {   
-        let t=JSON.parse(localStorage.getItem('best'));
+        best=JSON.parse(localStorage.getItem('best'));
         dis =document.createElement("div");
         dis.classList.add("timeBest");
         dispBest.appendChild(dis);
-        disTime=document.getElementsByClassName('timeBest');
-        for(var i=0;i<t.length;i++)
+        for(var i=0;i<best.length;i++)
         { 
-            sec=Math.floor(t[i]/1000);
-            msec=t[i]-(Math.floor(t[i]/1000)*1000);
+            sec=Math.floor(best[i]/1000);
+            msec=best[i]-(Math.floor(best[i]/1000)*1000);
             if (Math.floor(msec / 10) === 0)
 			    {
 				disTime[i].innerHTML = sec+ ':00' + msec +' S';
@@ -206,12 +205,11 @@ res.addEventListener('click',function(){
     function refreshBest(){
         best= JSON.parse(localStorage.getItem('best'));
         if(localStorage.getItem('best')===null)
-        document.getElementById('zerobest').innerHTML="0:000 S";
+        disTime[0].innerHTML="0:000 S";
         else
         {
             for(var i=0;i<best.length;i++)
-            {
-    
+            {   
                 refreshDiv= document.createElement("div");
                 refreshDiv.classList.add("timebest");
                 dispBest.appendChild(refreshDiv);
