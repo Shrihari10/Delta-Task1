@@ -41,6 +41,12 @@ function setup() {
     container.appendChild(startText);
     container.addEventListener('click', startCountDown);
 
+    res.innerHTML = "";
+    let newBox = document.createElement('p');
+    newBox.classList.add('newReset');
+    res.appendChild(newBox);
+    newBox.innerHTML = "Reset";
+
     best = JSON.parse(localStorage.getItem('best'));
     if (localStorage.getItem('best') === null)
         disTime[0].innerHTML = "0:000 S";
