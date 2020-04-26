@@ -105,7 +105,7 @@ function event() {
     count = 1;
     finish = 0;
     for (let i = 0; i < 20; i++) {
-        number[i].addEventListener('mouseover', function () {
+        number[i].addEventListener('click', function () {
 
             if ((parseInt(block[i].innerHTML) === count) && 20 + count <= 40) {
                 block[i].innerHTML = 20 + count;
