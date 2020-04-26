@@ -22,6 +22,8 @@ let s;
 let ms;
 let disTime=document.getElementsByClassName('timebest');
 let refreshDiv;
+var best=new Array();
+best= JSON.parse(localStorage.getItem('best'));
 
 setup();
 res.addEventListener('click',function(){
@@ -38,7 +40,20 @@ res.addEventListener('click',function(){
         startText.classList.add("clickText");
         container.appendChild(startText);
         container.addEventListener('click',startCountDown);
-        refreshBest();
+
+            best= JSON.parse(localStorage.getItem('best'));
+            if(localStorage.getItem('best')===null)
+            disTime[0].innerHTML="0:000 S";
+            else
+            {
+            for(var i=0;i<best.length;i++)
+            {   
+                refreshDiv= document.createElement("div");
+                refreshDiv.classList.add("timebest");
+                dispBest.appendChild(refreshDiv);
+                displayBest();
+            }
+            }
     }
 
 //calling counting 3,2,1.... function
@@ -57,7 +72,7 @@ res.addEventListener('click',function(){
     
     function stopCountDown(){
         clearInterval(interval);
-        container.classList.remove(startText);
+        startText.innerHTML="";
         newArray=shuffle(numArray);
         stopWatch();
         display();
@@ -167,23 +182,22 @@ res.addEventListener('click',function(){
     
     
     function bestTimer(){
-    var best=new Array();
+
     best.push(diff);
     localStorage.setItem('best',JSON.stringify(best));
-    best= JSON.parse(localStorage.getItem('best'));
+    best = JSON.parse(localStorage.getItem('best'));
     best.sort((a, b) => a - b);
     if(best.length>5)
         best.pop();
-    localStorage.setItem('best',JSON.stringify(best));
-    
+    localStorage.setItem('best',JSON.stringify(best)); 
     displayBest();
     }
 
     function displayBest()
     {   
-        best=JSON.parse(localStorage.getItem('best'));
-        dis =document.createElement("div");
-        dis.classList.add("timeBest");
+        best = JSON.parse(localStorage.getItem('best'));
+        dis = document.createElement("div");
+        dis.classList.add("timebest");
         dispBest.appendChild(dis);
         for(var i=0;i<best.length;i++)
         { 
@@ -193,29 +207,11 @@ res.addEventListener('click',function(){
 			    {
 				disTime[i].innerHTML = sec+ ':00' + msec +' S';
 			    }
-			    else if (Math.floor(ms / 100) === 0)
+			    else if (Math.floor(msec / 100) === 0)
 			    {
 				disTime[i].innerHTML = sec+ ':0' + msec +' S';
 			    }
 			    else
 				disTime[i].innerHTML =sec+ ': '+ msec +' S';
         }
-    }
-
-    function refreshBest(){
-        best= JSON.parse(localStorage.getItem('best'));
-        if(localStorage.getItem('best')===null)
-        disTime[0].innerHTML="0:000 S";
-        else
-        {
-            for(var i=0;i<best.length;i++)
-            {   
-                refreshDiv= document.createElement("div");
-                refreshDiv.classList.add("timebest");
-                dispBest.appendChild(refreshDiv);
-                displayBest();
-            }
-        }
-     
-       
     }
